@@ -1,12 +1,12 @@
 import React from "react";
 import Navbar from "./common/Navbar";
-import Footer from "./common/Footer";
+import Jumbo from "./common/Jumbo";
 
 const Main = props => (
   <div>
     <Navbar />
+    <Jumbo />
     {props.children}
-    <Footer />
   </div>
 );
 

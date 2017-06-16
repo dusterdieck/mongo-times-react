@@ -2,53 +2,43 @@ import React, { Component } from "react";
 import API from "../../utils/API";
 
 class Panel extends Component {
+  constructor(){
+    super();
+
+    this.saveArticle = this.saveArticle.bind(this);
+  }
+  //function for random unique id
+  guidGenerator() {
+    var S4 = function() {
+       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    };
+    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+  }
   // favoriteQuote toggles a quote's favorite status in the db and then
   // reloads all quotes in our app
-  favoriteQuote(quote) {
-    API.favoriteQuote(quote).then(this.props.getQuotes);
-  }
-   // deleteQuote deletes a quote in the db and then
-  // reloads all quotes in our app
-  deleteQuote(id) {
-    API.deleteQuote(id).then(this.props.getQuotes);
+  saveArticle() {
+    let article = {title: this.props.title,
+                   link: this.props.link}
+    API.saveArticle( article );
   }
   render() {
     return (
-      <div className="col-md-3 col-sm-6">
-        <div className="panel panel-default">
-          <div className="panel-body">
-            <i
-              onClick={() => this.favoriteQuote(this.props.quote)}
-              style={styles.favoriteStyle}
-              className={this.props.quote.favorited ? "fa fa-star gold" : "fa fa-star-o"}
-              aria-hidden="true"
-            />
-            <i
-              onClick={() => this.deleteQuote(this.props.quote._id)}
-              style={styles.deleteStyle}
-              className="fa fa-trash-o"
-              aria-hidden="true"
-            />
-            {this.props.quote.text}
+      <div className="panel panel-info">
+        <div className="panel-heading">
+          <h3 className="panel-title">{this.props.title}</h3>
+        </div>
+        <div className="panel-body row">
+          <div className="col-sm-9">
+            {this.props.blurb.map(section => <p key={this.guidGenerator()}>{section}</p> )}
+            <a href={this.props.link} className="btn btn-primary">Continue Reading</a>
+          </div>
+          <div className="col-sm-3">
+            <button className="btn btn-success save pull-right" onClick={this.saveArticle}>Save</button>
           </div>
         </div>
       </div>
     );
   }
 }
-
-const styles = {
-  favoriteStyle: {
-    cursor: "pointer",
-    marginRight: 5,
-    float: "left"
-  },
-  deleteStyle: {
-    cursor: "pointer",
-    marginLeft: 5,
-    color: "red",
-    float: "right"
-  }
-};
 
 export default Panel;

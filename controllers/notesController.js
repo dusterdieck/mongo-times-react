@@ -1,17 +1,14 @@
-import Note from "../models/Note";
-import Article from "../models/Note";
+const Note = require("../models/Note");
+const Article = require("../models/Article");
 
 module.exports = {
   // This method handles retrieving notes from the db
   // Not currently used in this app, but included for completeness
   index: function(req, res) {
-    let query;
-    if (req.query) {
-      query = req.query;
-    }
-    else {
-      query = req.params.id ? { _id: req.params.id } : {};
-    }
+    
+    let query = req.params.id ? { _id: req.params.id } : {};
+
+    console.log('QUERY', query)
     Note.find(query)
       .then(function(doc) {
         res.json(doc);

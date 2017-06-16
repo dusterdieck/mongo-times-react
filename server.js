@@ -1,11 +1,11 @@
 // Dependencies
-import express from "express";
-import bodyParser from "body-parser";
-import logger from "morgan";
-import mongoose from "mongoose";
-import bluebird from "bluebird";
-import routes from "./routes/routes";
-import path from "path";
+let express = require("express");
+let bodyParser = require("body-parser");
+let logger = require("morgan");
+let mongoose = require("mongoose");
+let bluebird = require("bluebird");
+let routes = require("./routes/routes");
+let path = require("path");
 
 // truthfully, no idea why bluebird instead of ES6 Promise
 // except the internet claims bluebird is faster
@@ -15,7 +15,7 @@ mongoose.Promise = bluebird;
 const APP = express();
 
 //set PORT
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
 // Use morgan and body parser with our app
 APP.use(logger("dev"));

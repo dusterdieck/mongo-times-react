@@ -1,4 +1,7 @@
-export default (req, res) => {
+let request = require('request'),
+    cheerio = require('cheerio');
+
+module.exports = (req, res) => {
 	let scrapedArticles = [];
     // First, we grab the body of the html with request
     request("http://m.mlb.com/news/", function(error, response, html) {
