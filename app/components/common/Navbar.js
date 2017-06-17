@@ -18,10 +18,10 @@ const Navbar = () => (
         {/* Collect the nav links, forms, and other content for toggling */} 
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul className="nav navbar-nav">
-            <li className='{(location.pathname === "/" && "active"}'>
+            <li className={location.pathname === "/" && "active"}>
               <Link to="/">Articles</Link>
             </li>
-            <li className='{location.pathname === "saved" && "active"}'>
+            <li className={location.pathname === "/saved" && "active"}>
               <Link to="/saved">Saved</Link>
             </li>
           </ul>
