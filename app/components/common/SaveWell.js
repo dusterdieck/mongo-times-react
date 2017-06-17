@@ -21,7 +21,7 @@ class SaveWell extends Component {
   render() {
     return (
       <div className="well well-lg" id={this.props._id}>
-        <div className="row">
+        <div className="row vcenter">
           <div className="col-sm-9">
             <a href={this.props.link}>
               <h2>{this.props.title}</h2>

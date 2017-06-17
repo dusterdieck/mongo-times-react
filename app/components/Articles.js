@@ -17,18 +17,20 @@ class Articles extends Component {
   }
   // A helper method for rendering one panel for each article
   renderArticles() {
-    return (!this.props.articles ? 
-      this.props.articles.map(article => (
+    if (this.props.articles.length <= 0){
+      return (
+        <div className="well well-lg" id={this.guidGenerator()}>
+          <h2>Uh-Oh. No articles have been scraped yet! Press above button to retrieve MLB News!</h2>   
+        </div>) 
+    } else {
+      return this.props.articles.map(article => (
         <Panel
           key={this.guidGenerator()}
           title={article.title}
           link={article.link}
           blurb={article.blurb}
         />))
-        : 
-        (<div className="well well-lg" id={this.guidGenerator()}>
-          <h2>Uh-Oh. No articles have been scraped yet! Press above button to retrieve MLB News!</h2>   
-        </div>) );
+    }
   }
   render() {
     return (
