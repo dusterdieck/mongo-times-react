@@ -19,7 +19,7 @@ module.exports = (req, res) => {
       result.title = $(this).attr('data-title');
       result.link = 'http://m.mlb.com' + $(this).attr("data-url");
       result.blurb = $(this).children("section").children('.blurb').text().trim().split('\n');
-      console.log('result', i, '=', result.title)
+
       scrapedArticles.push(result);
 
     });

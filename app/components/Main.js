@@ -14,7 +14,8 @@ class Main extends Component {
     this.scrapeArticles = this.scrapeArticles.bind(this);
   }
   //scrape method to be passed to Navbar for button
-  scrapeArticles() {
+  scrapeArticles(event) {
+    event.preventDefault();
     console.log('SCRAPE HIT');
     API.scrapeArticles().then((res) => {
       console.log('res', res.data);
@@ -25,8 +26,8 @@ class Main extends Component {
   renderChildren() {
     return 
       React.Children.map(this.props.children, (child) => 
-        (child.type === Articles) ? React.cloneElement(child, { articles: this.state.articles }) : child
-    );
+        React.cloneElement(child, { articles: this.state.articles })
+      );
   }
 
   render() {
