@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
 
-const Navbar = () => (
+const Navbar = (props) => (
   <nav className="navbar navbar-default">
       <div className="container-fluid">
         {/*Brand and toggle get grouped for better mobile display */} 
@@ -27,7 +27,7 @@ const Navbar = () => (
           </ul>
           {location.pathname === "/" && (
           <form className="navbar-form navbar-left">
-            <button id='scraper' className="btn btn-primary">Scrape Articles!</button>
+            <button id='scraper' className="btn btn-primary" onClick={props.scrapeArticles}>Scrape Articles!</button>
           </form>
           )}
         </div> {/*/.navbar-collapse */}
