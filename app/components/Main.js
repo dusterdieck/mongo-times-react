@@ -3,6 +3,7 @@ import Navbar from "./common/Navbar";
 import Jumbo from "./common/Jumbo";
 import Articles from './Articles'
 import API from "../utils/API";
+import NotesModal from './common/NotesModal'
 
 class Main extends Component {
   constructor() {
@@ -10,10 +11,12 @@ class Main extends Component {
     this.state = {
       articles: [],
       notes: [],
-      scraped: false
+      scraped: false,
+      hideModal: true
     };
     this.renderChildren = this.renderChildren.bind(this);
     this.scrapeArticles = this.scrapeArticles.bind(this);
+    this.displayNotes = this.displayNotes.bind(this);
   }
   //scrape method to be passed to Navbar for button
   scrapeArticles(event) {
@@ -24,6 +27,10 @@ class Main extends Component {
       this.setState({ articles: res.data,
                       scraped: true });
     });
+  }
+  //displays notes, maybe
+  displayNotes(_id) { 
+    this.setState({hideModal: false})
   }
   //render children method to add props to children that are Articles
   renderChildren() {
@@ -41,7 +48,7 @@ class Main extends Component {
     }
     else { 
       console.log('articles no'); 
-      return React.cloneElement(this.props.children, { articles: this.state.articles }) 
+      return React.cloneElement(this.props.children, { articles: this.state.articles, displayNotes: this.displayNotes }) 
     }
   }
 
@@ -51,6 +58,7 @@ class Main extends Component {
         <Navbar scrapeArticles={this.scrapeArticles} scraped={this.state.scraped}/>
         <Jumbo />
         {this.renderChildren()}
+        <NotesModal hidden={this.state.hideModal} />
       </div>
     )
   }
