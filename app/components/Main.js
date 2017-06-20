@@ -24,13 +24,22 @@ class Main extends Component {
   }
   //render children method to add props to children that are Articles
   renderChildren() {
-    console.log('type 1', React.Children.type);
-    console.log('type 2', this.props.children.type);
-    if (React.Children.type === Articles){
-    return 
-      React.cloneElement(this.props.children, { articles: this.state.articles })
+    for (let child in this.props.children){
+      if(this.props.children[child]){
+        if(this.props.children[child].type){
+          console.log('check hit');
+          console.log('type', this.props.children[child].type.name);
+        }
+      }
     }
-    else return this.props.children
+    if (React.Children.type === Articles){
+      console.log('articles yes')
+    return React.cloneElement(this.props.children, { articles: this.state.articles })
+    }
+    else { 
+      console.log('articles no'); 
+      return React.cloneElement(this.props.children, { articles: this.state.articles }) 
+    }
   }
 
   render() {
@@ -38,7 +47,7 @@ class Main extends Component {
       <div>
         <Navbar scrapeArticles={this.scrapeArticles} />
         <Jumbo />
-        {React.cloneElement(this.props.children, { articles: this.state.articles })}
+        {this.renderChildren()}
       </div>
     )
   }
