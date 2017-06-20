@@ -6,7 +6,6 @@ class SaveWell extends Component {
     super();
 
     this.deleteArticle = this.deleteArticle.bind(this);
-    this.displayNotes = this.displayNotes.bind(this);
   }
 
   // favoriteQuote toggles a quote's favorite status in the db and then
@@ -15,13 +14,10 @@ class SaveWell extends Component {
     API.deleteArticle( this.props._id )
       .then(this.props.getSavedArticles);
   }
-  displayNotes() { 
-  {/* Some kind of Modal thing to follow */}
-  }
   render() {
     return (
       <div className="well well-lg" id={this.props._id}>
-        <div className="row">
+        <div className="row vcenter">
           <div className="col-sm-9">
             <a href={this.props.link}>
               <h2>{this.props.title}</h2>
@@ -29,7 +25,7 @@ class SaveWell extends Component {
           </div>
           <div className="col-sm-3">
             <button className="btn btn-danger delete pull-right" onClick={this.deleteArticle}>Delete</button>
-            <button className="btn btn-info notes pull-right" onClick={this.displayNotes}>Notes</button>
+            <button className="btn btn-info notes pull-right" onClick={this.props.displayNotes}>Notes</button>
           </div>
         </div>
       </div>

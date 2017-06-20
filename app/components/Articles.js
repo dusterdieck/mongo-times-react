@@ -1,26 +1,12 @@
 import React, { Component } from "react";
 import Panel from "./common/Panel";
-import API from "../utils/API";
 
 class Articles extends Component {
   constructor() {
     super();
-    this.state = {
-      articles: []
-    };
     // Binding scrapeArticles to this component since we'll be passing this method to 
     // other components to use
-    this.scrapeArticles = this.scrapeArticles.bind(this);
     this.renderArticles = this.renderArticles.bind(this);
-  }
-  // Getting all articles once the component has mounted
-  componentDidMount() {
-    this.scrapeArticles();
-  }
-  scrapeArticles() {
-    API.scrapeArticles().then((res) => {
-      this.setState({ articles: res.data });
-    });
   }
   //function for random unique id
   guidGenerator() {
@@ -31,14 +17,20 @@ class Articles extends Component {
   }
   // A helper method for rendering one panel for each article
   renderArticles() {
-    return this.state.articles.map(article => (
-      <Panel
-        key={this.guidGenerator()}
-        title={article.title}
-        link={article.link}
-        blurb={article.blurb}
-      />
-    ));
+    if (this.props.articles.length <= 0){
+      return (
+        <div className="well well-lg" id={this.guidGenerator()}>
+          <h2>Uh-Oh. No articles have been scraped yet! Press above button to retrieve MLB News!</h2>   
+        </div>) 
+    } else {
+      return this.props.articles.map(article => (
+        <Panel
+          key={this.guidGenerator()}
+          title={article.title}
+          link={article.link}
+          blurb={article.blurb}
+        />))
+    }
   }
   render() {
     return (
