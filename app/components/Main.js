@@ -8,7 +8,9 @@ class Main extends Component {
   constructor() {
     super();
     this.state = {
-      articles: []
+      articles: [],
+      notes: [],
+      scraped: false
     };
     this.renderChildren = this.renderChildren.bind(this);
     this.scrapeArticles = this.scrapeArticles.bind(this);
@@ -19,7 +21,8 @@ class Main extends Component {
     console.log('SCRAPE HIT');
     API.scrapeArticles().then((res) => {
       console.log('res', res.data);
-      this.setState({ articles: res.data });
+      this.setState({ articles: res.data,
+                      scraped: true });
     });
   }
   //render children method to add props to children that are Articles
@@ -45,7 +48,7 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <Navbar scrapeArticles={this.scrapeArticles} />
+        <Navbar scrapeArticles={this.scrapeArticles} scraped={this.state.scraped}/>
         <Jumbo />
         {this.renderChildren()}
       </div>

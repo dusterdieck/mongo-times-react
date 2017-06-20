@@ -1,8 +1,17 @@
 import React from "react";
 import { Link } from "react-router";
 
-const Navbar = (props) => (
-  <nav className="navbar navbar-default">
+const Navbar = (props) => {
+
+  let scrapeButton = () => (
+    props.scraped?
+    <button id='scraper' className="btn btn-danger" onClick={props.scrapeArticles}>Re-Scrape</button>  
+    :
+    <button id='scraper' className="btn btn-primary" onClick={props.scrapeArticles}>Scrape Articles!</button>
+    );
+
+  return (
+    <nav className="navbar navbar-default">
       <div className="container-fluid">
         {/*Brand and toggle get grouped for better mobile display */} 
         <div className="navbar-header">
@@ -27,12 +36,13 @@ const Navbar = (props) => (
           </ul>
           {location.pathname === "/" && (
           <form className="navbar-form navbar-left">
-            <button id='scraper' className="btn btn-primary" onClick={props.scrapeArticles}>Scrape Articles!</button>
+            {scrapeButton()}
           </form>
           )}
         </div> {/*/.navbar-collapse */}
       </div> {/* /.container-fluid */}
     </nav>
-);
+  )
+};
 
 export default Navbar;

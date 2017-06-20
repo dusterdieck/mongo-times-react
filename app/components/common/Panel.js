@@ -4,7 +4,7 @@ import API from "../../utils/API";
 class Panel extends Component {
   constructor(){
     super();
-
+    this.state = { saved: false }
     this.saveArticle = this.saveArticle.bind(this);
   }
   //function for random unique id
@@ -19,7 +19,18 @@ class Panel extends Component {
   saveArticle() {
     let article = {title: this.props.title,
                    link: this.props.link}
-    API.saveArticle( article );
+    API.saveArticle( article ).then( res => {
+      this.setState( {saved: true} );
+    });
+  }
+
+  renderSaveButton() {
+    return (
+    this.state.saved ?
+    <button className="btn btn-warning save pull-right" onClick={this.saveArticle}>Saved!</button> 
+    :
+    <button className="btn btn-success save pull-right" onClick={this.saveArticle}>Save</button>
+    )
   }
   render() {
     return (
@@ -33,7 +44,7 @@ class Panel extends Component {
             <a href={this.props.link} className="btn btn-primary">Continue Reading</a>
           </div>
           <div className="col-sm-3">
-            <button className="btn btn-success save pull-right" onClick={this.saveArticle}>Save</button>
+            {this.renderSaveButton()}
           </div>
         </div>
       </div>
